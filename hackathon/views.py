@@ -19,8 +19,6 @@ def logout_and_redirect(request):
     return redirect('user_login') 
 
 def home(request):
-    if request.user.is_authenticated:
-        return logout_and_redirect(request)  # Auto logout if logged in   
     featured_courses = Course.objects.filter(is_featured=True)[:3]  # Fetch only 3 featured courses
     return render(request, 'index.html', {'featured_courses': featured_courses})
 
@@ -299,7 +297,7 @@ def update_learner_profile(request):
     return JsonResponse({"success": False})
 
 
-razorpay_client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+razpay_client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
 
 
 def create_order(request, course_id):
